@@ -1,0 +1,120 @@
+swagger: '2.0'
+info:
+  version: '1.0.0'
+  title: SASCalendar
+  description:  Service which parses webcal urls to json
+  termsOfService: http://wedonthaveoneyet.com
+  contact:
+    name: Groep 1
+    email: info@rickvanlieshout.com
+    url: http://swagger.io
+  license:
+    name: MIT
+    url: http://opensource.org/licenses/MIT
+host: han
+basePath: /v1
+schemes:
+  - http
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /webcal/events:
+    get:
+      description: Returns a user calendar parsed as json
+      operationId: getCalendarEvents
+      produces:
+        - application/json
+      parameters:
+        - name: address
+          in: query
+          description: url to get webcal from
+          required: true
+          type: string
+        - name: type
+          in: query
+          description: type of calendar (provided by han)
+          required: true
+          type: string
+        - name: nrOfDays
+          in: query
+          description: number of days
+          required: false
+          type: integer
+      responses:
+        '200':
+          description: webcal events in json format
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/calendar_item'
+        default:
+          description: Empty CalendarItem
+          schema:
+            $ref: '#/definitions/calendar_item'
+definitions:
+  calendar_item:
+    required:
+     - description
+    properties:
+      summary:
+        $ref: '#/definitions/Summary'
+      description:
+        type: string
+      location:
+        $ref: '#/definitions/Location'
+      dateStart:
+        type: Long
+      dateEnd:
+        type: Long
+      dateStamp:
+        type: Long
+      uid:
+        type: string
+      priority:
+        type: string
+  Location:
+    required:
+      - city
+      - name
+      - classRoom
+      - rawValue
+    properties:
+      city:
+        type: string
+      name:
+        type: string
+      classRoom:
+        type: string
+      rawValue:
+        type: string
+  Teacher:
+    required:
+      - name
+      - abbreviation
+    properties:
+      name:
+        type: string
+      abbreviation:
+        type: string
+  Summary:
+    required:
+      - semester
+      - subject
+      - className
+      - rawValue
+      - teachers
+    properties:
+      semester:
+        type: string
+      subject:
+        type: string
+      className:
+        type: string
+      teachers:
+        type: array
+        items:
+          $ref: '#/definitions/Teacher'
+      rawValue:
+        type: string

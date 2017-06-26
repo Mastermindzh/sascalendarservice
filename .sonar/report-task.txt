@@ -1,0 +1,5 @@
+projectKey=SASCalendarService
+serverUrl=http://ci.icaprojecten.nl
+dashboardUrl=http://ci.icaprojecten.nl/dashboard/index/SASCalendarService
+ceTaskId=AVyMvJNup-pUtMEHjCHj
+ceTaskUrl=http://ci.icaprojecten.nl/api/ce/task?id=AVyMvJNup-pUtMEHjCHj
